@@ -1,0 +1,10 @@
+{
+	"name": "node-api",
+	"description": "Articles Node API",
+	"main": "server.js",
+	"dependencies": {
+		"express": "*",
+		"mongoose": "*",
+		"body-parser": "*"
+	}
+}
