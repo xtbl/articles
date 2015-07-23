@@ -7,7 +7,7 @@ var Article = require('./app/models/article');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://test:testxxxxx@dbh74.mongolab.com:27747/articles');
+mongoose.connect('mongodb://test:testxxxxxx@dbh74.mongolab.com:27747/articles');
 
 
 var port = process.env.PORT || 8080;
@@ -48,6 +48,35 @@ router.route('/articles')
 		});
 	});
 
+router.route('/articles/:article_id')
+	.get(function(req, res) {
+		Article.findById(req.params.article_id, function(err, article){
+			if(err)
+				res.send(err);
+			res.json(article);
+		});
+	})
+	.put(function(req, res) {
+		Article.findById(req.params.article_id, function(err, article) {
+			if(err)
+				res.send(err);
+			article.name = req.body.name;
+			article.save(function(err) {
+				if(err)
+					res.send(err);
+				res.json({message: 'Article updated'});
+			});
+		});
+	})
+	.delete(function(req, res) {
+		Article.remove({
+			_id: req.params.article_id
+		}, function(err, article) {
+			if(err)
+				res.send(err);
+			res.json({message: 'Successfully deleted'});
+		});
+	});		
 // REGISTER ROUTES -----------------
 // routes are prefixed with /api
 app.use('/api', router);
@@ -56,3 +85,5 @@ app.use('/api', router);
 // ===========================================================================
 app.listen(port);
 console.log('Server started on port' + port);
+
+
