@@ -7,7 +7,7 @@ var Article = require('./app/models/article');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://test:testcrazy@dbh74.mongolab.com:27747/articles');
+mongoose.connect('mongodb://test:testxxxxx@dbh74.mongolab.com:27747/articles');
 
 
 var port = process.env.PORT || 8080;
