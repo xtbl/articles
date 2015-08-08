@@ -7,7 +7,7 @@ var Article = require('./app/models/article');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://test:testxxxxxx@dbh74.mongolab.com:27747/articles');
+mongoose.connect('mongodb://test:testcrazy@dbh74.mongolab.com:27747/articles');
 
 
 var port = process.env.PORT || 8080;
@@ -31,7 +31,7 @@ router.get('/', function(req, res) {
 router.route('/articles')
 	.post(function(req, res) {
 		var article = new Article();
-		article.name = req.body.name;
+		article.title = req.body.title;
 		article.save(function(err) {
 			if(err) 
 				res.send(err);
@@ -60,7 +60,7 @@ router.route('/articles/:article_id')
 		Article.findById(req.params.article_id, function(err, article) {
 			if(err)
 				res.send(err);
-			article.name = req.body.name;
+			article.title = req.body.title;
 			article.save(function(err) {
 				if(err)
 					res.send(err);

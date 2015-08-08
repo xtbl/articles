@@ -1,10 +1,14 @@
 {
-	"name": "node-api",
-	"description": "Articles Node API",
-	"main": "server.js",
-	"dependencies": {
-		"express": "*",
-		"mongoose": "*",
-		"body-parser": "*"
-	}
+  "name": "node-api",
+  "description": "Articles Node API",
+  "main": "server.js",
+  "dependencies": {
+    "express": "*",
+    "mongoose": "*",
+    "body-parser": "*"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "should": "^7.0.2"
+  }
 }
