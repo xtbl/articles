@@ -3,11 +3,12 @@ var app        = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Article = require('./app/models/article');
+var Fetcher = require('./app/utils/fetcher');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://test:testxxxxx@dbh74.mongolab.com:27747/articles');
+mongoose.connect('mongodb://test:testcrazy@dbh74.mongolab.com:27747/articles');
 
 
 var port = process.env.PORT || 8080;
@@ -86,4 +87,5 @@ app.use('/api', router);
 app.listen(port);
 console.log('Server started on port' + port);
 
-
+var fetcher = new Fetcher();
+fetcher.getContentListFromFile();

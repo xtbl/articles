@@ -12,5 +12,6 @@ describe("Fetcher", function () {
        fetcher.getConfig().url.should.equal("http://google.com");
     });
     it("gets content list");
+    it("gets content list from file");
 });
 
