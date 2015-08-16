@@ -3,9 +3,10 @@
   "description": "Articles Node API",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "*",
     "express": "*",
-    "mongoose": "*",
-    "body-parser": "*"
+    "lodash": "^3.10.1",
+    "mongoose": "*"
   },
   "devDependencies": {
     "mocha": "^2.2.5",
