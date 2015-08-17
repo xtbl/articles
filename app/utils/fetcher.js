@@ -21,14 +21,10 @@ var Fetcher = function () {
         fs.readFile('app/utils/comics.json', 'utf8', function (err, data) {
             if(err) throw err;
             contentListFromFile = JSON.parse(data);
-            console.log(contentListFromFile);
-
-            //TODO: format content list
         })
     }
 
     function formatIntoArticle(rawContentList, sourceType) {
-       //map required properties and return
         var redditComic = function (rawItem) {
             var rawItemData = rawItem.data;
             var getImage = function(rawItemPreview){
@@ -38,7 +34,7 @@ var Fetcher = function () {
                 title: rawItemData.title,
                 description: rawItemData.title || "",
                 url: rawItemData.url || "",
-                source: rawItemData.source || "",
+                source: rawItemData.author || "",
                 thumbnail: rawItemData.thumbnail || "",
                 image1: getImage(rawItemData.preview),
                 post_hint: rawItemData.post_hint || ""
@@ -48,15 +44,13 @@ var Fetcher = function () {
             return (nonFilteredItem.data.hasOwnProperty("post_hint") && nonFilteredItem.data.post_hint === "image");
         }
         if(sourceType === 'reddit') {
-            //return _(rawContentList.data.children).filter(filterImageItems);//.map(redditComic);
-            //return _.filter(rawContentList.data.children, filterImageItems);
             return _(rawContentList.data.children).filter(filterImageItems).map(redditComic).value();
         }
     }
 
     function getConfig() {
         return config;
-    }
+}
 
     return {
         setConfigUrl: setConfigUrl,
