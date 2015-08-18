@@ -37,7 +37,8 @@ var Fetcher = function () {
                 source: rawItemData.author || "",
                 thumbnail: rawItemData.thumbnail || "",
                 image1: getImage(rawItemData.preview),
-                post_hint: rawItemData.post_hint || ""
+                post_hint: rawItemData.post_hint || "",
+                categories: ['comics']
             }
         };
         var filterImageItems = function (nonFilteredItem) {

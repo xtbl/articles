@@ -16,7 +16,6 @@ describe("Fetcher", function () {
        fetcher.getConfig().url.should.equal("http://google.com");
     });
     it("returns a formatted list of articles", function () {
-        // TODO: to populate the db with the formatted list from the file
         typeof formattedList[0].title.should.equal('Fly You Fools [OC]');
         typeof formattedList[0].description.should.equal('Fly You Fools [OC]');
         typeof formattedList[0].url.should.equal("http://i.imgur.com/9qeyobk.png");
@@ -26,5 +25,6 @@ describe("Fetcher", function () {
         typeof formattedList[0].post_hint.should.equal('image');
     });
 
+    // TODO: populate the db with the formatted list from the file
 });
 

@@ -7,10 +7,9 @@ var ArticleSchema = new Schema({
 	url: String,
 	image1: String,
 	source: String,
-	source_icon: String,
 	image2: String,
 	thumbnail: String,
-	summary: String,
+	post_hint: String,
 	categories: Array
 });
 
