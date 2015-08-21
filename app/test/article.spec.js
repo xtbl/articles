@@ -34,17 +34,11 @@ describe("User", function () {
     it("has source", function () {
         article.source.should.equal("http://test.com");
     });
-    it("has sourceicon", function () {
-        article.source_icon.should.equal("http://test.com/image.jpg");
-    });
     it("has image2", function () {
         article.image2.should.equal("http://test.com/image.jpg");
     });
     it("has thumbnail", function () {
         article.thumbnail.should.equal("http://test.com/image.jpg");
-    });
-    it("has summary", function () {
-        article.summary.should.equal("Article summary");
     });
     it("has tags", function () {
         article.categories.should.containDeep(["tag1", "tag2"]);

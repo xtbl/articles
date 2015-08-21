@@ -8,8 +8,8 @@ var Fetcher = require('./app/utils/fetcher');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://test:testxxxxx@dbh74.mongolab.com:27747/articles');
-
+//mongoose.connect('mongodb://test:test@dbh74.mongolab.com:27747/articles');
+mongoose.connect('mongodb://localhost/comics');
 
 var port = process.env.PORT || 8080;
 
@@ -33,6 +33,13 @@ router.route('/articles')
 	.post(function(req, res) {
 		var article = new Article();
 		article.title = req.body.title;
+		article.description = req.body.title;
+		article.url = req.body.url;
+		article.source = req.body.source;
+		article.thumbnail = req.body.thumbnail;
+		article.image1 = req.body.image1;
+		article.post_hint = req.body.post_hint;
+		article.categories = req.body.categories;
 		article.save(function(err) {
 			if(err) 
 				res.send(err);
@@ -59,13 +66,22 @@ router.route('/articles/:article_id')
 	})
 	.put(function(req, res) {
 		Article.findById(req.params.article_id, function(err, article) {
-			if(err)
+			if(err) {
 				res.send(err);
-			article.title = req.body.title;
-			article.save(function(err) {
-				if(err)
-					res.send(err);
-				res.json({message: 'Article updated'});
+			}
+            article.title = req.body.title;
+            article.description = req.body.title;
+            article.url = req.body.url;
+            article.source = req.body.source;
+            article.thumbnail = req.body.thumbnail;
+            article.image1 = req.body.image1;
+            article.post_hint = req.body.post_hint;
+            article.categories = req.body.categories;
+            article.save(function(err) {
+                if(err) {
+                    res.send(err);
+                }
+                res.json({message: 'Article updated'});
 			});
 		});
 	})
