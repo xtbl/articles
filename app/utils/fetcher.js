@@ -1,9 +1,12 @@
 var fs = require('fs');
 var _ = require('lodash');
+var Article = require('../models/article');
+var EventEmitter = require('events').EventEmitter;
 
 var Fetcher = function () {
     var contentList = [];
     var contentListFromFile = [];
+    var ee = new EventEmitter();
 
     var config = {
         url: ""
@@ -21,6 +24,7 @@ var Fetcher = function () {
         fs.readFile('app/utils/comics.json', 'utf8', function (err, data) {
             if(err) throw err;
             contentListFromFile = JSON.parse(data);
+            ee.emit('fileRead', contentListFromFile);
         })
     }
 
@@ -49,16 +53,34 @@ var Fetcher = function () {
         }
     }
 
+    function fillEmptyDB() {
+        getContentListFromFile();
+    }
+
+    var saveFullList = function (rawList) {
+        var formattedList = formatIntoArticle(rawList, "reddit");
+        Article.collection.insert(formattedList, function(err) {
+           if(err) {
+               return new Error('Save Article List Failed.');
+           }
+            else {
+               console.log('Article List Saved.');
+           }
+        });
+    }
     function getConfig() {
         return config;
-}
+    }
+
+    ee.on('fileRead', saveFullList);
 
     return {
         setConfigUrl: setConfigUrl,
         getConfig: getConfig,
         getContentList: getContentList,
         getContentListFromFile: getContentListFromFile,
-        formatIntoArticle: formatIntoArticle
+        formatIntoArticle: formatIntoArticle,
+        fillEmptyDB: fillEmptyDB
     };
 };
 
