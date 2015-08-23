@@ -1,13 +1,15 @@
 var fs = require('fs');
 var _ = require('lodash');
 var Article = require('../models/article');
-var EventEmitter = require('events').EventEmitter;
+var events = require('events');
+var util = require('util');
 
 var Fetcher = function () {
+    var self = this;
+    events.EventEmitter.call(self);
+
     var contentList = [];
     var contentListFromFile = [];
-    var ee = new EventEmitter();
-
     var config = {
         url: ""
     };
@@ -24,7 +26,7 @@ var Fetcher = function () {
         fs.readFile('app/utils/comics.json', 'utf8', function (err, data) {
             if(err) throw err;
             contentListFromFile = JSON.parse(data);
-            ee.emit('fileRead', contentListFromFile);
+            self.emit('fileRead', contentListFromFile);
         })
     }
 
@@ -72,7 +74,8 @@ var Fetcher = function () {
         return config;
     }
 
-    ee.on('fileRead', saveFullList);
+    console.log('self is ', self);
+    self.on('fileRead', saveFullList);
 
     return {
         setConfigUrl: setConfigUrl,
@@ -84,4 +87,5 @@ var Fetcher = function () {
     };
 };
 
+util.inherits(Fetcher, events.EventEmitter);
 module.exports = Fetcher;
