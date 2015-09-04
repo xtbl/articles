@@ -23,7 +23,7 @@ var Fetcher = function () {
     }
 
     function getContentListFromFile() {
-        fs.readFile('app/utils/comics.json', 'utf8', function (err, data) {
+        fs.readFile('app/utils/comics_final_pack.json', 'utf8', function (err, data) {
             if(err) throw err;
             contentListFromFile = JSON.parse(data);
             self.emit('fileRead', contentListFromFile);
@@ -74,7 +74,6 @@ var Fetcher = function () {
         return config;
     }
 
-    console.log('self is ', self);
     self.on('fileRead', saveFullList);
 
     return {

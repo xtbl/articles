@@ -4,11 +4,11 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Article = require('./app/models/article');
 var Fetcher = require('./app/utils/fetcher');
-
+var _ 		= require('lodash');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-//mongoose.connect('mongodb://test:test@dbh74.mongolab.com:27747/articles');
+//mongoose.connect('mongodb://test:testxxxxxxxxxxxx@dbh74.mongolab.com:27747/articles');
 mongoose.connect('mongodb://localhost/comics');
 
 var port = process.env.PORT || 8080;
@@ -32,6 +32,10 @@ router.get('/', function(req, res) {
 router.route('/articles')
 	.post(function(req, res) {
 		var article = new Article();
+		var articleProps = ['title', 'description', 'url', 'source', 'thumbnail', 'image1', 'post_hint', 'categories'];
+		//_.each(articleProps, function(prop) {
+		//	article[prop] = req.body[prop];
+		//});
 		article.title = req.body.title;
 		article.description = req.body.title;
 		article.url = req.body.url;
